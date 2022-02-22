@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vijanakinyerezi/auth/screens/auth_land_screen.dart';
+import 'package:vijanakinyerezi/home/home_page.dart';
 import 'package:vijanakinyerezi/onboard/models/onboard_model.dart';
 import 'package:vijanakinyerezi/utilities/widget/buttons.dart';
 import 'package:vijanakinyerezi/utilities/widget/dimension.dart';
@@ -66,12 +68,12 @@ class _OnBoardState extends State<OnBoard> {
           TextButton(
             onPressed: () {
               _storeOnboardInfo();
-              // Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const LoginScreen(),
-              //   ),
-              // );
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePageScreen(),
+                ),
+              );
             },
             child: currentIndex == screens.length - 1
                 ? const SizedBox()
@@ -153,10 +155,12 @@ class _OnBoardState extends State<OnBoard> {
                           radius: 5,
                           action: () {
                             _storeOnboardInfo();
-                            // JTAppNavigation.pushReplaceAnimatedTransition(
-                            //   context,
-                            //   child: const HomeBottomNavigationBar(),
-                            // );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const WelcomePage(),
+                              ),
+                            );
                           },
                           buttonColor: Theme.of(context).primaryColor,
                           child: Padding(
@@ -192,10 +196,12 @@ class _OnBoardState extends State<OnBoard> {
                               onTap: () async {
                                 if (index == screens.length - 1) {
                                   await _storeOnboardInfo();
-                                  // JTAppNavigation.pushReplaceAnimatedTransition(
-                                  //   context,
-                                  //   child: const HomeBottomNavigationBar(),
-                                  // );
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const WelcomePage(),
+                                    ),
+                                  );
                                 }
 
                                 _pageController.nextPage(
