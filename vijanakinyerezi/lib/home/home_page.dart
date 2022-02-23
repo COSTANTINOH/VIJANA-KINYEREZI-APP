@@ -81,9 +81,9 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
     } else if (_currentIndex == 1) {
       return const NewsHome();
     } else if (_currentIndex == 2) {
-      return const VijanaScreen();
-    } else if (_currentIndex == 3) {
       return const WaletScreen();
+    } else if (_currentIndex == 3) {
+      return const VijanaScreen();
     } else if (_currentIndex == 4) {
       return const Profile();
     }
@@ -91,11 +91,13 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
   }
 
   Widget buildSearchAppBar() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Text(
-        "App Name",
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+        "VIJANA KINYEREZI",
+        style: headerStyle.copyWith(
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -106,7 +108,12 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Upcoming Events", style: headerStyle.copyWith(color: Colors.white)),
+          Text(
+            "Karibu, Costantino Dionis Gwaka",
+            style: subtitleStyle.copyWith(
+              color: Colors.white,
+            ),
+          ),
           UIHelper.verticalSpace(16),
           SizedBox(
             height: 250,
@@ -198,7 +205,6 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
       body: getBody(),
       bottomNavigationBar: HomePageButtonNavigationBar(
         onTap: (index) {
-          log("pages $index");
           setState(() {
             _currentIndex = index;
           });
@@ -208,41 +214,13 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(FontAwesomeIcons.qrcode),
+        onPressed: () {
+          setState(() {
+            _currentIndex = 2;
+          });
+        },
+        child: const Icon(FontAwesomeIcons.dollarSign),
       ),
     );
-    // return Scaffold(
-
-    //   body: SizedBox.expand(
-    //     child: PageView(
-    //       controller: _pageController,
-    //       onPageChanged: (index) {
-    //         setState(() => _currentIndex = index);
-    //       },
-    //       children: const <Widget>[
-    //        ,
-    //         (),
-    //         (),
-    //         (),
-    //         (),
-    //       ],
-    //     ),
-    //   ),
-    //   bottomNavigationBar: BottomNavyBar(
-    //     selectedIndex: _currentIndex,
-    //     onItemSelected: (index) {
-    //       setState(() => _currentIndex = index);
-    //       _pageController.jumpToPage(index);
-    //     },
-    //     items: <BottomNavyBarItem>[
-    //       BottomNavyBarItem(title: const Text('Home'), icon: const Icon(Icons.home)),
-    //       BottomNavyBarItem(title: const Text('News'), icon: const Icon(Icons.notifications)),
-    //       BottomNavyBarItem(title: const Text('Vijana'), icon: const Icon(Icons.people)),
-    //       BottomNavyBarItem(title: const Text('Contributions'), icon: const Icon(Icons.money)),
-    //       BottomNavyBarItem(title: const Text('Profile'), icon: const Icon(Icons.person)),
-    //     ],
-    //   ),
-    // );
   }
 }

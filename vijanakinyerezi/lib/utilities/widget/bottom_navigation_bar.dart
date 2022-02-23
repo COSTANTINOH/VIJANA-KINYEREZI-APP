@@ -18,20 +18,24 @@ class HomePageButtonNavigationBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
-          label: "Explore",
-          icon: Icon(Icons.explore),
+          label: "Mwanzo",
+          icon: Icon(FontAwesomeIcons.home),
         ),
         BottomNavigationBarItem(
-          label: "Map",
-          icon: Icon(Icons.location_on),
+          label: "Habari",
+          icon: Icon(FontAwesomeIcons.newspaper),
         ),
         BottomNavigationBarItem(
-          label: "Ticket",
-          icon: Icon(FontAwesomeIcons.ticketAlt),
+          label: "Mfuko",
+          icon: Icon(null),
         ),
         BottomNavigationBarItem(
-          label: "User",
-          icon: Icon(Icons.person),
+          label: "Vijana",
+          icon: Icon(FontAwesomeIcons.users),
+        ),
+        BottomNavigationBarItem(
+          label: "Akaunti",
+          icon: Icon(FontAwesomeIcons.user),
         ),
       ],
     );
