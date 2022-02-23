@@ -27,11 +27,10 @@ class MyApp extends StatelessWidget {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'VIJANA',
-
-      home: OnBoard(),
+      home: isviewed == 0 ? const OnBoard() : const HomePageScreen(),
       // isviewed == 0 ? const OnBoard() : const HomePageScreen(),
     );
   }

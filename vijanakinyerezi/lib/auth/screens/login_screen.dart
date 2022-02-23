@@ -9,7 +9,6 @@ import 'package:vijanakinyerezi/utilities/localstorage/shared/local_storage.dart
 import 'package:vijanakinyerezi/utilities/widget/alert.dart';
 import 'package:vijanakinyerezi/utilities/widget/colors.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, this.title}) : super(key: key);
 
@@ -23,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isregistered = false;
-  dynamic _countryCode = '255';
   late bool showpassword;
 
   @override
@@ -36,13 +34,13 @@ class _LoginPageState extends State<LoginPage> {
     Alerts.showProgressDialog(context, "Please Wait,Checking your info");
 
     String myApi = "https://nswls.000webhostapp.com/admin/api/login.php/";
-    String phoneNumber = "$_countryCode" + "$phone";
+    String phoneNumber = phone;
 
     final response = await http.post(Uri.parse(myApi), headers: {
       'Accept': 'application/json'
     }, body: {
       "username": phoneNumber,
-      "password": "$password",
+      "password": password,
     });
 
     if (response.statusCode == 200) {
@@ -112,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Text(
               title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             TextField(
               controller: textcontroller,
@@ -130,7 +128,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               onChanged: (phone) {
                 setState(() {
-                  _countryCode = phone;
                 });
               },
             )
@@ -233,80 +230,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _divider() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: const <Widget>[
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          Text('or'),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-    );
-  }
 
-  Widget _facebookButton() {
-    return Container(
-      height: 50,
-      margin: const EdgeInsets.symmetric(vertical: 20),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xff1959a9),
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), topLeft: Radius.circular(5)),
-              ),
-              alignment: Alignment.center,
-              child: Text('f', style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400)),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xff2872ba),
-                borderRadius: BorderRadius.only(bottomRight: Radius.circular(5), topRight: Radius.circular(5)),
-              ),
-              alignment: Alignment.center,
-              child: const Text('Log in with Facebook',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _createAccountLabel() {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpPage()));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 20),
@@ -344,7 +273,7 @@ class _LoginPageState extends State<LoginPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Container(
+            child: SizedBox(
               width: 80,
               height: 80,
               child: Image.asset('assets/images/vijanawa.png'),

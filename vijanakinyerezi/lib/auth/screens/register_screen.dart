@@ -32,7 +32,6 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController xcompany = TextEditingController();
   TextEditingController jinaLaJumuiya = TextEditingController();
 
-  String _countryCode = '255';
   int currentStep = 0;
   late bool showpassword;
   String _halindoa = '';
@@ -86,12 +85,12 @@ class _SignUpPageState extends State<SignUpPage> {
       'Accept': 'application/json'
     }, body: {
       "fname": fname,
-      "phone": "${_countryCode + phone}",
-      "password": "$password",
-      "email": "$email",
-      "username": "$username",
-      "address": "$address",
-      "company": "$company",
+      "phone": phone,
+      "password": password,
+      "email": email,
+      "username": username,
+      "address": address,
+      "company": company,
     });
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
@@ -114,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
+          MaterialPageRoute(builder: (context) => const LoginPage()),
         );
       } else if (jsonResponse == 404) {
         setState(() {
@@ -164,9 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 color: Colors.black,
               ),
               onChanged: (phone) {
-                setState(() {
-                  _countryCode = phone;
-                });
+                setState(() {});
               },
             )
           ],
@@ -221,7 +218,12 @@ class _SignUpPageState extends State<SignUpPage> {
           color: MyColors.primary,
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           boxShadow: <BoxShadow>[
-            BoxShadow(color: Colors.grey.shade200, offset: Offset(2, 4), blurRadius: 5, spreadRadius: 2)
+            BoxShadow(
+              color: Colors.grey.shade200,
+              offset: const Offset(2, 4),
+              blurRadius: 5,
+              spreadRadius: 2,
+            )
           ],
         ),
         child: const Text(

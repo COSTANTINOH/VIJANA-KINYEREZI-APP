@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'zip_color.dart';
 
 class MyColors {
-  static Color primary = Utility.hexToColor("#00bfff");
+  static Color primary = Utility.hexToColor("#5C80BC"); //00bfff
   static Color primaryDark = Utility.hexToColor("#000080");
   static Color primaryLight = Utility.hexToColor("#800080");
 

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:vijanakinyerezi/auth/screens/auth_land_screen.dart';
 import 'package:vijanakinyerezi/utilities/widget/colors.dart';
@@ -38,8 +40,8 @@ class NoAuthBanner extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text(
                     "In order to continue you must login to your account.",
                     style: TextStyle(
@@ -49,7 +51,7 @@ class NoAuthBanner extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -76,7 +78,7 @@ class NoAuthBanner extends StatelessWidget {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           color: MyColors.primary,
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomePage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomePage()));
                           },
                           child: const Text(
                             "Login",
