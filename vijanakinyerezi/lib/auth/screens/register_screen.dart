@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:vijanakinyerezi/auth/screens/login_screen.dart';
 import 'package:vijanakinyerezi/utilities/widget/alert.dart';
+import 'package:vijanakinyerezi/utilities/widget/custom_dropdown.dart';
+import 'package:vijanakinyerezi/utilities/widget/dimension.dart';
 
 import '../../utilities/widget/colors.dart';
 
@@ -27,14 +29,23 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController haliYaNdoa = TextEditingController();
   TextEditingController jinaLaMwenziWako = TextEditingController();
 
+  //section b
+  TextEditingController xeducation = TextEditingController();
+  TextEditingController xujuzi = TextEditingController();
+  TextEditingController xkazi = TextEditingController();
+  TextEditingController xhobi = TextEditingController();
+
   TextEditingController xusername = TextEditingController();
   TextEditingController xaddress = TextEditingController();
   TextEditingController xcompany = TextEditingController();
   TextEditingController jinaLaJumuiya = TextEditingController();
+  TextEditingController biblia = TextEditingController();
 
   int currentStep = 0;
   late bool showpassword;
   String _halindoa = '';
+  String _bibliakwaya = '';
+
   List<dynamic> _dataProvince = [];
   String? _valProvince;
   String idYaJumuiya = '';
@@ -342,7 +353,7 @@ class _SignUpPageState extends State<SignUpPage> {
         children: <Widget>[
           _entryField("Jina Kamili", xfname),
           _entryField("Namba ya simu", xphone),
-          _entryField("Barua pepe", xphone),
+          _entryField("Barua pepe", xemail),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -420,7 +431,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ],
           ),
-          _entryField("Jina la mke/mume", xphone),
+          _entryField("Jina la mke/mume", jinaLaMwenziWako),
         ],
       ),
     );
@@ -429,10 +440,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _sectionB() {
     return Column(
       children: <Widget>[
-        _entryField("Elimu yako", xfname),
-        _entryField("Ujuzi", xphone),
-        _entryField("Kazi", xphone),
-        _entryField("Hobi", xphone),
+        _entryField("Elimu yako", xeducation),
+        _entryField("Ujuzi", xujuzi),
+        _entryField("Kazi", xkazi),
+        _entryField("Hobi", xhobi),
       ],
     );
   }
@@ -451,45 +462,99 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         // ignore: unnecessary_null_comparison
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: DropdownButton(
-              hint: const Text("Chagua Jumuiya yako"),
-              value: _valProvince,
-              items: _dataProvince.map((item) {
-                return DropdownMenuItem(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.home_work_outlined,
-                        color: MyColors.primaryLight,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        item['jumuiya_name'],
-                        style: TextStyle(
-                          color: MyColors.primaryLight,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  value: item['jumuiya_name'], //{"id": item['id'].toString(), "jina": item['jumuiya_name'].toString()},
-                );
-              }).toList(),
-              onChanged: (value) async {
-                setState(() {
-                  _valProvince = value.toString();
-                  jinaLaJumuiya.text = value.toString();
-                  idYaJumuiya = value.toString();
-                });
-              },
+        jtmanualStepper(),
+        SizedBox(
+          width: double.infinity,
+          child: JTDropDownMenu(
+            value: _valProvince,
+            decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
             ),
+            isExpanded: true,
+            hint: const Text(
+              'Chagua jumuiya yako',
+              style: TextStyle(fontSize: 14),
+            ),
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: Colors.black45,
+            ),
+            iconSize: 30,
+            buttonHeight: 50,
+            buttonPadding: const EdgeInsets.only(left: 20, right: 10),
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            items: _dataProvince
+                .map(
+                  (item) => DropdownMenuItem(
+                    value: item['jumuiya_name'],
+                    child: Text(
+                      item['jumuiya_name'],
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+            validator: (value) {
+              if (value == null) {
+                return 'tafadhari chagua jumuiya yako';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              setState(() {
+                _valProvince = value.toString();
+                jinaLaJumuiya.text = value.toString();
+              });
+            },
+            onSaved: (value) {
+              setState(() {
+                _valProvince = value.toString();
+                jinaLaJumuiya.text = value.toString();
+              });
+            },
           ),
+          // DropdownButton(
+          //   hint: const Text("Chagua Jumuiya yako"),
+          //   value: _valProvince,
+          //   items: _dataProvince.map((item) {
+          //     return DropdownMenuItem(
+          //       child: Row(
+          //         children: [
+          //           Icon(
+          //             Icons.home_work_outlined,
+          //             color: MyColors.primaryLight,
+          //           ),
+          //           const SizedBox(
+          //             width: 10,
+          //           ),
+          //           Text(
+          //             item['jumuiya_name'],
+          //             style: TextStyle(
+          //               color: MyColors.primaryLight,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //       value: item['jumuiya_name'], //{"id": item['id'].toString(), "jina": item['jumuiya_name'].toString()},
+          //     );
+          //   }).toList(),
+          //   onChanged: (value) async {
+          //     setState(() {
+          //       _valProvince = value.toString();
+          //       jinaLaJumuiya.text = value.toString();
+          //       idYaJumuiya = value.toString();
+          //     });
+          //   },
+          // ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -512,11 +577,11 @@ class _SignUpPageState extends State<SignUpPage> {
               title: const Text('Ndio'),
               leading: Radio(
                 value: "Ndio",
-                groupValue: _halindoa,
+                groupValue: _bibliakwaya,
                 onChanged: (value) {
                   setState(() {
                     _halindoa = value.toString();
-                    haliYaNdoa.text = value.toString();
+                    biblia.text = value.toString();
                   });
                 },
               ),
@@ -527,11 +592,11 @@ class _SignUpPageState extends State<SignUpPage> {
               title: const Text('Hapana'),
               leading: Radio(
                 value: "Hapana",
-                groupValue: _halindoa,
+                groupValue: _bibliakwaya,
                 onChanged: (value) {
                   setState(() {
-                    _halindoa = value.toString();
-                    haliYaNdoa.text = value.toString();
+                    _bibliakwaya = value.toString();
+                    biblia.text = value.toString();
                   });
                 },
               ),
@@ -589,8 +654,8 @@ class _SignUpPageState extends State<SignUpPage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
-        title: const Center(child: Text("Usajili APP NAME")),
+        backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
+        title: const Text("Usajili APP NAME"),
       ),
       body: Stepper(
         type: StepperType.horizontal,

@@ -53,7 +53,7 @@ class _OnBoardState extends State<OnBoard> {
   }
 
   _storeOnboardInfo() async {
-    int isViewed = 0;
+    int isViewed = 1;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('onBoardApp', isViewed);
   }

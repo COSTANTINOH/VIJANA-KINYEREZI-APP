@@ -1,9 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vijanakinyerezi/home/home_page.dart';
 import 'package:vijanakinyerezi/onboard/onboard.dart';
-import 'package:vijanakinyerezi/utilities/widget/colors.dart';
 
 int? isviewed;
 
@@ -11,6 +12,9 @@ void main() async {
   runApp(const MyApp());
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isviewed = prefs.getInt('onBoardApp');
+  if (isviewed == null) {
+    prefs.setInt('onBoardApp', 0);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("value $isviewed");
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

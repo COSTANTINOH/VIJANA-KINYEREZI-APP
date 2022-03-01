@@ -4,7 +4,9 @@ import 'package:vijanakinyerezi/home/event_detail_page.dart';
 import 'package:vijanakinyerezi/home/pages/profile_screen.dart';
 import 'package:vijanakinyerezi/michango/michango_screen.dart';
 import 'package:vijanakinyerezi/news/news_home.dart';
+import 'package:vijanakinyerezi/no_auth/no_auth_screen.dart';
 import 'package:vijanakinyerezi/utilities/app_utils.dart';
+import 'package:vijanakinyerezi/utilities/constants/constant.dart';
 import 'package:vijanakinyerezi/utilities/models/event_model.dart';
 import 'package:vijanakinyerezi/utilities/widget/bottom_navigation_bar.dart';
 import 'package:vijanakinyerezi/utilities/widget/carousel_pro/src/carousel_pro.dart';
@@ -113,13 +115,13 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
         ],
       );
     } else if (_currentIndex == 1) {
-      return const NewsHome();
+      return (accessToken.isEmpty || accessToken == '') ? const NoAuthScreen() : const NewsHome();
     } else if (_currentIndex == 2) {
-      return const WaletScreen();
+      return (accessToken.isEmpty || accessToken == '') ? const NoAuthScreen() : const WaletScreen();
     } else if (_currentIndex == 3) {
-      return const VijanaScreen();
+      return (accessToken.isEmpty || accessToken == '') ? const NoAuthScreen() : const VijanaScreen();
     } else if (_currentIndex == 4) {
-      return const Profile();
+      return (accessToken.isEmpty || accessToken == '') ? const NoAuthScreen() : const Profile();
     }
     return null;
   }
@@ -203,7 +205,7 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              const Text("Ratiba za michezo", style: headerStyle),
+              const Text("Ratiba za Michezo/Sanaa", style: headerStyle),
               const Spacer(),
               const Icon(Icons.more_horiz),
               UIHelper.horizontalSpace(16),
