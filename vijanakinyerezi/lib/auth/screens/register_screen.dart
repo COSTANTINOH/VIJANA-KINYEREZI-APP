@@ -35,11 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController xkazi = TextEditingController();
   TextEditingController xhobi = TextEditingController();
 
-  TextEditingController xusername = TextEditingController();
-  TextEditingController xaddress = TextEditingController();
-  TextEditingController xcompany = TextEditingController();
   TextEditingController jinaLaJumuiya = TextEditingController();
-  TextEditingController biblia = TextEditingController();
+  TextEditingController xbiblia = TextEditingController();
 
   int currentStep = 0;
   late bool showpassword;
@@ -57,8 +54,19 @@ class _SignUpPageState extends State<SignUpPage> {
     showpassword = false;
   }
 
-  Future<dynamic> register(String fname, String phone, String password, String email, String username, String address,
-      String company) async {
+  Future<dynamic> register(
+    String fname,
+    String phone,
+    String email,
+    String halindoa,
+    String jinamwenza,
+    String elimu,
+    String ujuzi,
+    String kazi,
+    String hobi,
+    String jinajumuiya,
+    String biblia,
+  ) async {
     String myApi = "https://nswls.000webhostapp.com/admin/api/register.php/";
     Alerts.showProgressDialog(context, "Please Wait,regestering your account");
 
@@ -66,26 +74,19 @@ class _SignUpPageState extends State<SignUpPage> {
       isregistered = true;
     });
 
-    if (xfname.text.isEmpty ||
-        xphone.text.isEmpty ||
-        xpassword.text.isEmpty ||
-        xemail.text.isEmpty ||
-        xusername.text.isEmpty ||
-        xaddress.text.isEmpty ||
-        xcompany.text.isEmpty) {
-      setState(() {
-        isregistered = false;
-      });
-      Navigator.pop(context);
-    }
-
     if (fname == "" ||
         phone == "" ||
-        password == "" ||
         email == "" ||
-        username == "" ||
-        address == "" ||
-        company == "") {
+        halindoa == "" ||
+        jinamwenza == "" ||
+        elimu == "" ||
+        ujuzi == "" ||
+        kazi == "" ||
+        hobi == "" ||
+        jinajumuiya == "" ||
+        biblia == "" ||
+        ujuzi == "" ||
+        ujuzi == "") {
       setState(() {
         isregistered = false;
       });
@@ -97,11 +98,16 @@ class _SignUpPageState extends State<SignUpPage> {
     }, body: {
       "fname": fname,
       "phone": phone,
-      "password": password,
       "email": email,
-      "username": username,
-      "address": address,
-      "company": company,
+      "halindoa": halindoa,
+      "jinamwenza": jinamwenza,
+      "elimu": elimu,
+      "ujuzi": ujuzi,
+      "kazi": kazi,
+      "hobi": hobi,
+      "jinajumuiya": jinajumuiya,
+      "biblia": biblia,
+      "password": "password"
     });
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
@@ -114,13 +120,18 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.pop(context);
 
         xfname.clear();
-        xpassword.clear();
-        xpassword.clear();
         xemail.clear();
         xphone.clear();
-        xusername.clear();
-        xaddress.clear();
-        xcompany.clear();
+        haliYaNdoa.clear();
+        jinaLaMwenziWako.clear();
+
+        xeducation.clear();
+        xujuzi.clear();
+        xkazi.clear();
+        xhobi.clear();
+
+        jinaLaJumuiya.clear();
+        xbiblia.clear();
 
         Navigator.push(
           context,
@@ -219,7 +230,19 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _submitButton() {
     return GestureDetector(
       onTap: () {
-        register(xfname.text, xphone.text, xpassword.text, xemail.text, xusername.text, xaddress.text, xcompany.text);
+        register(
+          xfname.text,
+          xphone.text,
+          xemail.text,
+          haliYaNdoa.text,
+          jinaLaMwenziWako.text,
+          xeducation.text,
+          xujuzi.text,
+          xkazi.text,
+          xhobi.text,
+          jinaLaJumuiya.text,
+          xbiblia.text,
+        );
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -581,7 +604,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 onChanged: (value) {
                   setState(() {
                     _halindoa = value.toString();
-                    biblia.text = value.toString();
+                    xbiblia.text = value.toString();
                   });
                 },
               ),
@@ -596,7 +619,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 onChanged: (value) {
                   setState(() {
                     _bibliakwaya = value.toString();
-                    biblia.text = value.toString();
+                    xbiblia.text = value.toString();
                   });
                 },
               ),
