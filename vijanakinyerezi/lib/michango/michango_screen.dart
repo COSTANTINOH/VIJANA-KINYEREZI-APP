@@ -84,12 +84,12 @@ class _WaletScreenState extends State<WaletScreen> {
           children: [
             Column(
               children: [
-                Text(
-                  "MFUKO WA VIJANA",
+                const Text(
+                  "Mfuko wa vijana",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: MyColors.primary,
+                    color: Colors.black,
                   ),
                 ),
                 FutureBuilder(
@@ -104,8 +104,8 @@ class _WaletScreenState extends State<WaletScreen> {
                     } else if (snapshot.hasData) {
                       return Text(
                         "Jumla kuu  Tsh. ${currency.format(snapshot.data)}/=",
-                        style: TextStyle(
-                          color: MyColors.primary,
+                        style: const TextStyle(
+                          color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -117,10 +117,10 @@ class _WaletScreenState extends State<WaletScreen> {
                 ),
               ],
             ),
-            Divider(
-              thickness: 3,
-              color: MyColors.primary,
-            ),
+            // Divider(
+            //   thickness: 3,
+            //   color: MyColors.primary,
+            // ),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: _pullRefresh,

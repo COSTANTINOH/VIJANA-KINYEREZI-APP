@@ -99,7 +99,7 @@ class _WelcomePageState extends State<WelcomePage> {
           height: 20,
         ),
         Text(
-          'VIJANA KINYEREZI',
+          'APP NAME',
           textAlign: TextAlign.left,
           style: TextStyle(
             fontWeight: FontWeight.bold,

@@ -52,18 +52,18 @@ class _VijanaScreenState extends State<VijanaScreen> {
         padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
         child: Column(
           children: [
-            Text(
+            const Text(
               "Vijana Wa Kinyerezi",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                color: MyColors.primary,
+                color: Colors.black,
               ),
             ),
-            Divider(
-              thickness: 3,
-              color: MyColors.primary,
-            ),
+            // Divider(
+            //   thickness: 3,
+            //   color: MyColors.primary,
+            // ),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: _pullRefresh,

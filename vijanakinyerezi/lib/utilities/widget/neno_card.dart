@@ -5,10 +5,10 @@ import '../models/event_model.dart';
 import '../constants/datetime_utils.dart';
 import 'ui_helper.dart';
 
-class NearbyEventCard extends StatelessWidget {
+class NenoCard extends StatelessWidget {
   final Event event;
   final VoidCallback onTap;
-  const NearbyEventCard({Key? key, required this.event, required this.onTap}) : super(key: key);
+  const NenoCard({Key? key, required this.event, required this.onTap}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +36,7 @@ class NearbyEventCard extends StatelessWidget {
         width: 80,
         height: 100,
         child: Hero(
-          tag: event.image,
+          tag: event.image + "1",
           child: Image.network(
             event.image,
             fit: BoxFit.cover,
@@ -57,13 +57,6 @@ class NearbyEventCard extends StatelessWidget {
           UIHelper.verticalSpace(8),
           Text(event.name, style: titleStyle),
           UIHelper.verticalSpace(8),
-          Row(
-            children: <Widget>[
-              Icon(Icons.location_on, size: 16, color: Theme.of(context).primaryColor),
-              UIHelper.horizontalSpace(4),
-              Text(event.location.toUpperCase(), style: subtitleStyle),
-            ],
-          ),
         ],
       ),
     );

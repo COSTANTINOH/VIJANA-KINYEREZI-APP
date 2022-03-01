@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'VIJANA',
       home: isviewed == 0 ? const OnBoard() : const HomePageScreen(),
-      // isviewed == 0 ? const OnBoard() : const HomePageScreen(),
     );
   }
 }

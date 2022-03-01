@@ -26,10 +26,10 @@ class ImagePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _bright = context.watch<ThemeBloc>();
+    // final _bright = context.watch<ThemeBloc>();
     return img.contains('null')
         ? Image.asset(
-            'assets/images/${_bright.brightness == Brightness.dark ? 'no_image.png' : 'no_image.png'}',
+            'assets/images/no_image.png',
             fit: BoxFit.cover,
             width: width,
           )
@@ -45,7 +45,7 @@ class ImagePreview extends StatelessWidget {
               width: 20,
               child: Center(
                 child: Lottie.asset(
-                  'assets/animation/image_loading.json',
+                  'assets/animations/image_loading.json',
                   height: 100,
                 ),
                 // CircularProgressIndicator(
@@ -58,7 +58,7 @@ class ImagePreview extends StatelessWidget {
               height: height,
               width: jtdeviceWidth(context),
               child: Image.asset(
-                'assets/images/${_bright.brightness == Brightness.dark ? 'no_image.png' : 'no_image.png'}',
+                'assets/images/no_image.png',
                 fit: BoxFit.cover,
                 width: jtdeviceWidth(context),
               ),

@@ -1,18 +1,17 @@
-import 'dart:developer';
-
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vijanakinyerezi/home/event_detail_page.dart';
-import 'package:vijanakinyerezi/home/pages/home_screen.dart';
 import 'package:vijanakinyerezi/home/pages/profile_screen.dart';
 import 'package:vijanakinyerezi/michango/michango_screen.dart';
 import 'package:vijanakinyerezi/news/news_home.dart';
 import 'package:vijanakinyerezi/utilities/app_utils.dart';
 import 'package:vijanakinyerezi/utilities/models/event_model.dart';
 import 'package:vijanakinyerezi/utilities/widget/bottom_navigation_bar.dart';
+import 'package:vijanakinyerezi/utilities/widget/carousel_pro/src/carousel_pro.dart';
 import 'package:vijanakinyerezi/utilities/widget/home_bg_color.dart';
+import 'package:vijanakinyerezi/utilities/widget/image.dart';
 import 'package:vijanakinyerezi/utilities/widget/nearby_event_card.dart';
+import 'package:vijanakinyerezi/utilities/widget/neno_card.dart';
 import 'package:vijanakinyerezi/utilities/widget/text_style.dart';
 import 'package:vijanakinyerezi/utilities/widget/ui_helper.dart';
 import 'package:vijanakinyerezi/utilities/widget/upcoming_event_card.dart';
@@ -57,12 +56,21 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
     super.dispose();
   }
 
+  List images = [
+    "https://i.ibb.co/fNNTcM8/kinyerezi2.jpg",
+    "https://i.ibb.co/dDB4P4H/kinyerezi2.jpg",
+    "https://i.ibb.co/617qyHx/kinyerezi1.png",
+  ];
+
   Widget? getBody() {
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+
     if (_currentIndex == 0) {
       return Stack(
         children: <Widget>[
           HomeBackgroundColor(opacity),
           SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             controller: scrollController,
             padding: const EdgeInsets.only(top: 100),
             child: Column(
@@ -70,6 +78,32 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
               children: <Widget>[
                 buildSearchAppBar(),
                 UIHelper.verticalSpace(16),
+                SizedBox(
+                  height: 200.0,
+                  child: Carousel(
+                    boxFit: BoxFit.cover,
+                    dotColor: const Color(0xFF6991C7),
+                    dotSize: 5.5,
+                    dotSpacing: 16.0,
+                    dotBgColor: Colors.transparent,
+                    showIndicator: true,
+                    overlayShadow: true,
+                    overlayShadowColors: Colors.white,
+                    overlayShadowSize: 0.9,
+                    images: List.generate(
+                      images.length,
+                      (index) {
+                        return InkWell(
+                          onTap: () {},
+                          child: ImagePreview(
+                            img: images[index],
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 buildUpComingEventList(),
                 UIHelper.verticalSpace(16),
                 buildNearbyConcerts(),
@@ -93,11 +127,22 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
   Widget buildSearchAppBar() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Text(
-        "VIJANA KINYEREZI",
-        style: headerStyle.copyWith(
-          color: Colors.white,
-        ),
+      child: Column(
+        children: [
+          Text(
+            "APP NAME",
+            style: headerStyle.copyWith(
+              color: Colors.white,
+            ),
+          ),
+          UIHelper.verticalSpace(16),
+          Text(
+            "Karibu, Costantino Dionis Gwaka",
+            style: subtitleStyle.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -108,12 +153,6 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            "Karibu, Costantino Dionis Gwaka",
-            style: subtitleStyle.copyWith(
-              color: Colors.white,
-            ),
-          ),
           UIHelper.verticalSpace(16),
           SizedBox(
             height: 250,
@@ -164,36 +203,87 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              const Text("Nearby Concerts", style: headerStyle),
+              const Text("Ratiba za michezo", style: headerStyle),
               const Spacer(),
               const Icon(Icons.more_horiz),
               UIHelper.horizontalSpace(16),
             ],
           ),
-          ListView.builder(
-            itemCount: nearbyEvents.length,
-            shrinkWrap: true,
-            primary: false,
-            itemBuilder: (context, index) {
-              final event = nearbyEvents[index];
-              var animation = Tween<double>(begin: 800.0, end: 0.0).animate(
-                CurvedAnimation(
-                  parent: controller,
-                  curve: Interval((1 / nearbyEvents.length) * index, 1.0, curve: Curves.decelerate),
-                ),
-              );
-              return AnimatedBuilder(
-                animation: animation,
-                builder: (context, child) => Transform.translate(
-                  offset: Offset(animation.value, 0.0),
-                  child: NearbyEventCard(
-                    event: event,
-                    onTap: () => viewEventDetail(event),
+          SizedBox(
+            height: 150,
+            child: ListView.builder(
+              itemCount: nearbyEvents.length,
+              shrinkWrap: true,
+              primary: false,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final event = nearbyEvents[index];
+                var animation = Tween<double>(begin: 800.0, end: 0.0).animate(
+                  CurvedAnimation(
+                    parent: controller,
+                    curve: Interval(
+                      (1 / nearbyEvents.length) * index,
+                      1.0,
+                      curve: Curves.decelerate,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+                return AnimatedBuilder(
+                  animation: animation,
+                  builder: (context, child) => Transform.translate(
+                    offset: Offset(animation.value, 0.0),
+                    child: NearbyEventCard(
+                      event: event,
+                      onTap: () => viewEventDetail(event),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const Text("Neno La Mungu", style: headerStyle),
+              const Spacer(),
+              const Icon(Icons.more_horiz),
+              UIHelper.horizontalSpace(16),
+            ],
+          ),
+          SizedBox(
+            height: 150,
+            child: ListView.builder(
+              itemCount: nearbyEvents.length,
+              shrinkWrap: true,
+              primary: false,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final event = nearbyEvents[index];
+                var animation = Tween<double>(begin: 800.0, end: 0.0).animate(
+                  CurvedAnimation(
+                    parent: controller,
+                    curve: Interval(
+                      (1 / nearbyEvents.length) * index,
+                      1.0,
+                      curve: Curves.decelerate,
+                    ),
+                  ),
+                );
+                return AnimatedBuilder(
+                  animation: animation,
+                  builder: (context, child) => Transform.translate(
+                    offset: Offset(animation.value, 0.0),
+                    child: NenoCard(
+                      event: event,
+                      onTap: () => viewEventDetail(event),
+                    ),
+                  ),
+                );
+              },
+            ),
+          )
         ],
       ),
     );
@@ -202,6 +292,7 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: getBody(),
       bottomNavigationBar: HomePageButtonNavigationBar(
         onTap: (index) {

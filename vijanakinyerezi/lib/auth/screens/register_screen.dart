@@ -313,7 +313,7 @@ class _SignUpPageState extends State<SignUpPage> {
           height: 20,
         ),
         Text(
-          'VIJANA KINYEREZI',
+          'APP NAME',
           textAlign: TextAlign.left,
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -590,7 +590,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.primary,
-        title: const Center(child: Text("Usajili Vijana Kinyerezi")),
+        title: const Center(child: Text("Usajili APP NAME")),
       ),
       body: Stepper(
         type: StepperType.horizontal,

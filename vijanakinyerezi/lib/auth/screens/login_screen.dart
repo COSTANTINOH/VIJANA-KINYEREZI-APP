@@ -127,8 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.black,
               ),
               onChanged: (phone) {
-                setState(() {
-                });
+                setState(() {});
               },
             )
           ],
@@ -230,8 +229,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
-
   Widget _createAccountLabel() {
     return InkWell(
       onTap: () {
@@ -284,7 +281,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 20,
         ),
         Text(
-          'VIJANA KINYEREZI',
+          'APP NAME',
           textAlign: TextAlign.left,
           style: TextStyle(
             fontWeight: FontWeight.bold,
