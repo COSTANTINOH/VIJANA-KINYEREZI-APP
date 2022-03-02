@@ -630,12 +630,6 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  //  _entryField("Username", xusername),
-  //       _entryField("Email", xemail),
-  //       _entryField("Address", xaddress),
-  //       _entryField("Company", xcompany),
-  //       _entryField("Password", xpassword, isPassword: true),
-
   List<Step> getSteps() => [
         Step(
           isActive: currentStep >= 0,

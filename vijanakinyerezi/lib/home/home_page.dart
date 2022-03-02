@@ -65,7 +65,6 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
   ];
 
   Widget? getBody() {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     if (_currentIndex == 0) {
       return Stack(
