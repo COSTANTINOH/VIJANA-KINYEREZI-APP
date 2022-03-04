@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:vijanakinyerezi/auth/screens/details_screen.dart';
 import 'package:vijanakinyerezi/auth/screens/login_screen.dart';
 import 'package:vijanakinyerezi/utilities/widget/alert.dart';
 import 'package:vijanakinyerezi/utilities/widget/custom_dropdown.dart';
 import 'package:vijanakinyerezi/utilities/widget/dimension.dart';
+import 'package:vijanakinyerezi/utilities/widget/popup_feedback.dart';
 
 import '../../utilities/widget/colors.dart';
+
+Map<String, dynamic> userData = {};
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key, this.title}) : super(key: key);
@@ -67,7 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
     String jinajumuiya,
     String biblia,
   ) async {
-    String myApi = "https://nswls.000webhostapp.com/admin/api/register.php/";
+    String myApi = "http://vijanakinyerezi.000webhostapp.com/admin/api/register.php";
     Alerts.showProgressDialog(context, "Please Wait,regestering your account");
 
     setState(() {
@@ -603,7 +608,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 groupValue: _bibliakwaya,
                 onChanged: (value) {
                   setState(() {
-                    _halindoa = value.toString();
+                    _bibliakwaya = value.toString();
                     xbiblia.text = value.toString();
                   });
                 },
@@ -671,7 +676,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
+        backgroundColor: MyColors.primary, //Theme.of(context).primaryColor.withOpacity(1),
         title: const Text("Usajili APP NAME"),
       ),
       body: Stepper(
@@ -679,9 +684,37 @@ class _SignUpPageState extends State<SignUpPage> {
         steps: getSteps(),
         currentStep: currentStep,
         onStepContinue: () {
+          if (xphone.text.length > 10 || xphone.text.length < 10) {
+            return popUpFeedback(
+              context,
+              message: "Namba ya simu imekosewa",
+              title: "error",
+              icon: Icons.error,
+              colors: Theme.of(context).errorColor,
+              position: StyledToastPosition.top,
+            );
+          }
+
           final isLastStep = currentStep == getSteps().length - 1;
           if (isLastStep) {
-            //send data to server
+            //send data to server to details
+            userData = {
+              "fname": xfname.text,
+              "phone": xphone.text,
+              "email": xemail.text,
+              "halindoa": haliYaNdoa.text,
+              "jinamwenza": jinaLaMwenziWako.text,
+              "elimu": xeducation.text,
+              "ujuzi": xujuzi.text,
+              "kazi": xkazi.text,
+              "hobi": xhobi.text,
+              "jinajumuiya": jinaLaJumuiya.text,
+              "biblia": xbiblia.text,
+            };
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DetailsScreen()),
+            );
           } else {
             setState(() {
               currentStep += 1;

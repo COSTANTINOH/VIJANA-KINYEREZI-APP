@@ -10,6 +10,7 @@ import 'package:vijanakinyerezi/utilities/constants/constant.dart';
 import 'package:vijanakinyerezi/utilities/models/event_model.dart';
 import 'package:vijanakinyerezi/utilities/widget/bottom_navigation_bar.dart';
 import 'package:vijanakinyerezi/utilities/widget/carousel_pro/src/carousel_pro.dart';
+import 'package:vijanakinyerezi/utilities/widget/colors.dart';
 import 'package:vijanakinyerezi/utilities/widget/home_bg_color.dart';
 import 'package:vijanakinyerezi/utilities/widget/image.dart';
 import 'package:vijanakinyerezi/utilities/widget/nearby_event_card.dart';
@@ -65,7 +66,6 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
   ];
 
   Widget? getBody() {
-
     if (_currentIndex == 0) {
       return Stack(
         children: <Widget>[
@@ -306,6 +306,7 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: MyColors.primary,
         onPressed: () {
           setState(() {
             _currentIndex = 2;

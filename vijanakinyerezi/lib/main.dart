@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vijanakinyerezi/home/home_page.dart';
 import 'package:vijanakinyerezi/onboard/onboard.dart';
+import 'package:vijanakinyerezi/utilities/widget/colors.dart';
 
 int? isviewed;
 
@@ -26,9 +27,9 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).primaryColor.withOpacity(1),
+        systemNavigationBarColor: MyColors.primary, //Theme.of(context).primaryColor.withOpacity(1),
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: Theme.of(context).primaryColor.withOpacity(1),
+        statusBarColor: MyColors.primary, //Theme.of(context).primaryColor.withOpacity(1),
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );

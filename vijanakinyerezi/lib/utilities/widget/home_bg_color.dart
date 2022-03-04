@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:vijanakinyerezi/utilities/widget/color.dart';
+import 'package:vijanakinyerezi/utilities/widget/colors.dart';
 
 class HomeBackgroundColor extends AnimatedWidget {
   final Animation<double> opacity;
@@ -19,7 +20,8 @@ class HomeBackgroundColor extends AnimatedWidget {
               height: (MediaQuery.of(context).size.height / 2.5) * progress.value,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(lerpDouble(0.5, 1.0, progress.value) ?? 1.0),
+                color: MyColors
+                    .primary, //Theme.of(context).primaryColor.withOpacity(lerpDouble(0.5, 1.0, progress.value) ?? 1.0),
                 borderRadius: const BorderRadius.vertical(bottom: Radius.circular(32)),
               ),
             ),
