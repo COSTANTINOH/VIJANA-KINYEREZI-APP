@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vijanakinyerezi/home/event_detail_page.dart';
@@ -7,6 +9,7 @@ import 'package:vijanakinyerezi/news/news_home.dart';
 import 'package:vijanakinyerezi/no_auth/no_auth_screen.dart';
 import 'package:vijanakinyerezi/utilities/app_utils.dart';
 import 'package:vijanakinyerezi/utilities/constants/constant.dart';
+import 'package:vijanakinyerezi/utilities/localstorage/shared/local_storage.dart';
 import 'package:vijanakinyerezi/utilities/models/event_model.dart';
 import 'package:vijanakinyerezi/utilities/widget/bottom_navigation_bar.dart';
 import 'package:vijanakinyerezi/utilities/widget/carousel_pro/src/carousel_pro.dart';
@@ -19,6 +22,8 @@ import 'package:vijanakinyerezi/utilities/widget/text_style.dart';
 import 'package:vijanakinyerezi/utilities/widget/ui_helper.dart';
 import 'package:vijanakinyerezi/utilities/widget/upcoming_event_card.dart';
 import 'package:vijanakinyerezi/vijana/vijana_screen.dart';
+
+var data;
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -36,8 +41,20 @@ class _HomePageScreenState extends State<HomePageScreen> with TickerProviderStat
   late AnimationController opacityController;
   late Animation<double> opacity;
 
+  void checkLogin() async {
+    await LocalStorage.getStringItem('mydata').then((value) {
+      if (value.isNotEmpty) {
+        var mydata = jsonDecode(value);
+        setState(() {
+          data = mydata;
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
+    checkLogin();
     scrollController = ScrollController();
     controller = AnimationController(vsync: this, duration: const Duration(seconds: 1))..forward();
     opacityController = AnimationController(vsync: this, duration: const Duration(microseconds: 1));

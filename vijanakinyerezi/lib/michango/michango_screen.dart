@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vijanakinyerezi/home/home_page.dart';
 import 'package:vijanakinyerezi/utilities/widget/colors.dart';
 
 class WaletScreen extends StatefulWidget {
@@ -15,14 +17,15 @@ class WaletScreen extends StatefulWidget {
 
 class _WaletScreenState extends State<WaletScreen> {
   Future<dynamic> getJumlaYAKO() async {
-    String myApi = "https://galilaya.000webhostapp.com/admin/api/get_jumla_wekeza.php";
+    log("namba ${data['phone']}");
+    String myApi = "http://vijanakinyerezi.000webhostapp.com/admin/api/get_jumla_wekeza.php";
     final response = await http.post(
       Uri.parse(myApi),
       headers: {
         'Accept': 'application/json',
       },
       body: {
-        "phone_number": '0659515042', //data['phone'],
+        "phone_number": data['phone'],
       },
     );
 

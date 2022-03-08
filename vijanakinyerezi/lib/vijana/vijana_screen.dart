@@ -15,7 +15,7 @@ class VijanaScreen extends StatefulWidget {
 
 class _VijanaScreenState extends State<VijanaScreen> {
   Future<dynamic> getWanajumuiya() async {
-    String myApi = "https://galilaya.000webhostapp.com/admin/api/get_wanajumuiya.php";
+    String myApi = "http://vijanakinyerezi.000webhostapp.com/admin/api/get_vijana.php";
     final response = await http.post(
       Uri.parse(myApi),
       headers: {
@@ -203,7 +203,7 @@ class _VijanaScreenState extends State<VijanaScreen> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: <Widget>[
                                                 Text(
-                                                  snapshot.data[index]['gender'],
+                                                  snapshot.data[index]['elimu'],
                                                   maxLines: 1,
                                                   overflow: TextOverflow.ellipsis,
                                                   style: const TextStyle(
@@ -214,7 +214,7 @@ class _VijanaScreenState extends State<VijanaScreen> {
                                                 Row(
                                                   children: [
                                                     const Text(
-                                                      "Anakoishi :",
+                                                      "Ujuzi :",
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
@@ -223,7 +223,7 @@ class _VijanaScreenState extends State<VijanaScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      snapshot.data[index]['location'],
+                                                      snapshot.data[index]['ujuzi'],
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: const TextStyle(

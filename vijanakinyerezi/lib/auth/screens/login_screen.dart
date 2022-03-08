@@ -1,13 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:vijanakinyerezi/auth/screens/register_screen.dart';
+import 'package:vijanakinyerezi/home/home_page.dart';
+import 'package:vijanakinyerezi/utilities/constants/constant.dart';
 import 'package:vijanakinyerezi/utilities/localstorage/shared/local_storage.dart';
 import 'package:vijanakinyerezi/utilities/widget/alert.dart';
 import 'package:vijanakinyerezi/utilities/widget/colors.dart';
+import 'package:vijanakinyerezi/utilities/widget/popup_feedback.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, this.title}) : super(key: key);
@@ -33,13 +37,13 @@ class _LoginPageState extends State<LoginPage> {
   Future<dynamic> login(String phone, String password) async {
     Alerts.showProgressDialog(context, "Please Wait,Checking your info");
 
-    String myApi = "https://nswls.000webhostapp.com/admin/api/login.php/";
+    String myApi = "http://vijanakinyerezi.000webhostapp.com/admin/api/login.php";
     String phoneNumber = phone;
 
     final response = await http.post(Uri.parse(myApi), headers: {
       'Accept': 'application/json'
     }, body: {
-      "username": phoneNumber,
+      "phone": phoneNumber,
       "password": password,
     });
 
@@ -47,16 +51,32 @@ class _LoginPageState extends State<LoginPage> {
       var jsonResponse = json.decode(response.body);
       if (jsonResponse != null && jsonResponse != 404 && jsonResponse != 500) {
         var json = jsonDecode(response.body);
+        String mydata = jsonEncode(json[0]);
+
         setState(
           () {
             isregistered = false;
             phoneController.text = "";
             passwordController.text = "";
+            accessToken = mydata;
           },
         );
 
-        String mydata = jsonEncode(json[0]);
         await LocalStorage.setStringItem("mydata", mydata);
+        Navigator.pop(context);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePageScreen()),
+        );
+        return popUpFeedback(
+          context,
+          message: "Umeingia kwenye akaunti yako",
+          title: "Imefanikiwa",
+          icon: Icons.check_box_outlined,
+          colors: Colors.green,
+          position: StyledToastPosition.top,
+        );
       } else if (jsonResponse == 404) {
         setState(
           () {
