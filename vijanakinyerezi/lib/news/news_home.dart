@@ -226,6 +226,7 @@ class _NewsHomeState extends State<NewsHome> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Container(
         margin: const EdgeInsets.only(top: 50, left: 4, right: 4),
         child: Column(
